@@ -1,33 +1,13 @@
-{% load staticfiles %}
-<html>
-       <head>
-           <title>Blog  Jorge Ramirez</title>
-           <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-           <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-           <link rel="stylesheet" href="{% static "css/blog.css" %}">
-           <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-       </head>
-       <body>
-           <div class="page-header">
-              <h1>¡Bienvenidos!</h1>
-           </div>
+{% extends "blog/base.html" %}
 
-           <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-                {% for publicaciones in publicaciones %}
-                    <div class="post">
-                        <div class="date">
-                            {{ publicaciones.fecha_publicacion}}
-                        </div>
-                        <h1><a href="">{{ publicaciones.titulo }}</a></h1>
-                        <p>{{ publicaciones.texto|linebreaks }}</p>
-                    </div>
-                {% endfor %}
+{% block content %}
+    {% for post in publicaciones %}
+        <div class="post">
+            <div class="date">
+                {{ post.fecha_publicacion }}
             </div>
+            <h1><a href="{% url "blog.views.detalle_publicaciones" pk=post.pk %}">{{ post.titulo }}</a></h1>
+            <p>{{ post.texto|linebreaks }}</p>
         </div>
-
-    </div>
-
-       </body>
-   </html>
+    {% endfor %}
+{% endblock content %}
